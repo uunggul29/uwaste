@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles2.css">
+    <link rel="stylesheet" href="admin.js">
+    <link rel="icon" href="logouwaste.png" type="image/png" sizes="16x16">
+    <title>Admin U-Waste</title>
+
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-database-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAA8XU1ZHlXjFuxRVauGH0BtLVx40G3ENk",
+            authDomain: "uwaste-4f273.firebaseapp.com",
+            databaseURL: "https://uwaste-4f273-default-rtdb.firebaseio.com",
+            projectId: "uwaste-4f273",
+            storageBucket: "uwaste-4f273.appspot.com",
+            messagingSenderId: "631518771734",
+            appId: "1:631518771734:web:cb05008ed0575486245337"
+         };
+       
+         firebase.initializeApp(firebaseConfig);
+         var database = firebase.database();
+       </script>
+       
+
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo-details">
+            <img src="logouwastenobg.png"width="80" height="100">
+            <span class="logo_name">Admin</span>
+        </div>
+        <ul class="nav-links">
+            <li>
+                <a href="#" class="active">
+                    <i><img src="logobuy.png" width="25" height="25"></i>
+                    <span class="links_name">Buy</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i><img src="logosell.png" width="25" height="25"></i>
+                    <span class="links_name">Sell</span>
+                </a>
+            </li>
+            <li class="log_out">
+                <a href="index.html">
+                    <i><img src="logoback.png" width="25" height="25"></i>
+                    <span class="links_name">Back</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <section class="home-section">
+        <nav>
+            <div class="sidebar-button">
+                <i><img src="logomenu.png" width="25" height="25"></i>
+                <span class="dashboard">Buy</span>
+            </div>
+        </nav>
+
+        <div class="home-content">
+            <div class="sales-boxes">
+                <div class="recent-sales box">
+                    <div class="title">Recently Buy</div>
+                    <div class="sales-details">
+                        <table>
+                            <ul class="details">
+                                <li class="topic">Name</li>
+                                    <li><a href="#">{ uwaste.name }</a></li>
+                                    
+                            </ul>
+                            <ul class="details">
+                                <li class="topic">Type</li>
+                                    <li><a href="#">{ uwaste.type }</a></li>
+                                    
+                            </ul>
+                            <ul class="details">
+                                <li class="topic">Weight (KG)</li>
+                                    <li><a href="#">{ uwaste.weight }</a></li>
+
+                            </ul>
+                            <ul class="details">
+                                <li class="topic">Delivery Adress</li>
+                                    <li><a href="#">{ uwaste.delivery }</a></li>
+
+                            </ul>
+                            <ul class="details">
+                                <li class="topic">Phone Number</li>
+                                    <li><a href="#">{ uwaste.phone }</a></li>
+
+                            </ul>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function fetchData() {
+          var dataContainer = document.getElementById('data-container');
+          database.ref('/uwaste').once('value').then(function(snapshot) {
+            // Loop
+            snapshot.forEach(function(childSnapshot) {
+              var data = childSnapshot.val();
+              // Tambahkan elemen HTML sesuai kebutuhan Anda
+              var dataElement = document.createElement('div');
+              dataElement.innerHTML = '<p>' + data.name + ': ' + data.delivery +':' + data.type + ':' + data.weight + ':' + data.phone + '</p>'; //nama database nya
+              dataContainer.appendChild(dataElement);
+            });
+          });
+        }
+    
+        fetchData();
+        </script>
+
+    <script>
+        const logoContainer = document.getElementById('logoContainer');
+        const logoImage = document.getElementById('logoImage');
+    
+        logoContainer.addEventListener('mouseenter', function () {
+            logoImage.style.transform = 'scale(1.2)';
+        });
+    
+        logoContainer.addEventListener('mouseleave', function () {
+            logoImage.style.transform = 'scale(1)';
+        });
+    </script>
+</body>
+</html>
